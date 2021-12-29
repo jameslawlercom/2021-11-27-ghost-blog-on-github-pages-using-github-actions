@@ -1,5 +1,5 @@
 User-agent: *
-Sitemap: http://localhost:2368/sitemap.xml
+Sitemap: https://jameslawlercom.github.io/2021-11-27-ghost-blog-on-github-pages-using-github-actions/sitemap.xml
 Disallow: /ghost/
 Disallow: /p/
 Disallow: /email/
