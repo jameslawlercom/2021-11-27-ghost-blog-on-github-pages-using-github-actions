@@ -1,0 +1,27 @@
+name: Deploy Ghost and Generate Static Site
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Model Repository
+        uses: actions/checkout@v2
+      - name: Run Ghost
+        run: docker run -d -p 2368:2368 -v ${{ github.workspace }}/content:/var/lib/ghost/content ghost:4.32-alpine
+      - name: Sleep for 10 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "10s"
+      - name: Install @jameslawler/ghost-static-site-generator
+        run: npm install -g @jameslawler/ghost-static-site-generator
+      - name: Generate Static Site
+        run: gssg
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: static
